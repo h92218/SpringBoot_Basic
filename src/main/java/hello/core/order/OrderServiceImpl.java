@@ -26,7 +26,7 @@ public class OrderServiceImpl implements OrderService{
     }
 
     //테스트용도
-    public MemberRepository getMemoryMemberRepository(){
+    public MemberRepository getMemberRepository(){
         return memberRepository;
     }
 

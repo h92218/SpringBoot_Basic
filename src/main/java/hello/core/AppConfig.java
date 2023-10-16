@@ -14,24 +14,29 @@ import org.springframework.context.annotation.Configuration;
 
 //Configuration : 애플리케이션 구성정보
 @Configuration
+//@Configuration을 붙이면 CGLIB 기술을 사용하여 싱글톤을 보장함
 public class AppConfig {
 
     //Bean : 스프링 컨테이너에 메소드 이름으로 등록이 됨 (스프링 빈)
     //(name:)으로 이름을 직접 부여할 수 있음
     @Bean
     public MemberService memberService(){
+        System.out.println("call AppConfig.memberService");
         return new MemberServiceImpl(memberRepository());
     }
 
     @Bean
-    public OrderService orderService(){
-        return new OrderServiceImpl(memberRepository(),discountPolicy());
+    public MemberRepository memberRepository() {
+        System.out.println("call AppConfig.memberRepository");
+        return new MemoryMemberRepository();
     }
 
     @Bean
-    public static MemberRepository memberRepository() {
-        return new MemoryMemberRepository();
+    public OrderService orderService(){
+        System.out.println("call AppConfig.orderService");
+        return new OrderServiceImpl(memberRepository(),discountPolicy());
     }
+
 
     @Bean
     public DiscountPolicy discountPolicy(){

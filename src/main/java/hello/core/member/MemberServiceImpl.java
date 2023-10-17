@@ -3,8 +3,8 @@ package hello.core.member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component("memberService2")
-//이름 직접 붙이기 가능
+@Component
+//이름 직접 붙이기 가능 @Component("memberServiceImpl")
 public class MemberServiceImpl implements MemberService{
 
     private final MemberRepository memberRepository;

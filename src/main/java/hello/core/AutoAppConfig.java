@@ -13,4 +13,5 @@ import org.springframework.context.annotation.FilterType;
 //@Component가 붙은 클래스를 스캔해서 스프링 빈으로 등록
 //@Bean으로 등록해준 클래스 없음
 public class AutoAppConfig {
+
 }

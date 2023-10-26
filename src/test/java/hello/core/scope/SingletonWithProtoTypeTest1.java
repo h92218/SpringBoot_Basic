@@ -3,6 +3,7 @@ package hello.core.scope;
 import lombok.RequiredArgsConstructor;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Scope;
@@ -34,25 +35,31 @@ public class SingletonWithProtoTypeTest1 {
 
         ClientBean clientBean2 = ac.getBean(ClientBean.class);
         int client2 = clientBean2.logic();
-        Assertions.assertThat(client2).isEqualTo(2);
+        Assertions.assertThat(client2).isEqualTo(1);
 
     }
 
     @Scope("singleton") //생략가능
-    @RequiredArgsConstructor
+    //@RequiredArgsConstructor
     static class ClientBean{
         //생성시점에 주입 => 계속 같은걸 씀..
-        private final PrototypeBean prototypeBean;
+       // private final PrototypeBean prototypeBean;
 
-        /*
+        // JSR-330 javax.inject.Inject annotation 로 대체가능
         @Autowired
+        private ObjectProvider<PrototypeBean> prototypeBeanProvider;
+
+
+        /*@Autowired
         public ClientBean(PrototypeBean prototypeBean){
             this.prototypeBean = prototypeBean;
-        }
-        */
+        }*/
 
 
         public int logic(){
+            //getObject 호출 시점에 스프링 컨테이너에서 해당 빈을 찾아서 반환함(Dependency Lookup)
+            PrototypeBean prototypeBean = prototypeBeanProvider.getObject();
+            //항상 새로운 프로토타입 빈이 생성됨
             prototypeBean.addCount();
             return prototypeBean.getCount();
         }
@@ -73,12 +80,12 @@ public class SingletonWithProtoTypeTest1 {
 
         @PostConstruct
         public void init(){
-            System.out.println("PrototypeBean.init");
+            System.out.println("PrototypeBean.init " + this);
         }
 
         @PreDestroy
         public void destroy(){
-            System.out.println("PrototypeBean.destroy");
+            System.out.println("PrototypeBean.destroy " + this);
         }
     }
 }

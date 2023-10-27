@@ -30,6 +30,10 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 
+	//web 라이브러리 추가
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'javax.injection:javax.injection:1'
+
 	testCompileOnly 'org.projectlombok:lombok'
 	testAnnotationProcessor 'org.projectlombok:lombok'
 }

@@ -1,0 +1,5 @@
+* 웹 스코프
+request :  HTTP 요청 하나가 들어오고 나갈 때 까지 유지됨. 각각의 요청마다 별도의 빈 인스턴스가 생성되고 관리됨
+session : HTTP session과 동일한 생명주기를 가짐
+application : Servlet Context와 동일한 생명주기를 가짐
+websocket : websocket과 동일한 생명주기를 가짐

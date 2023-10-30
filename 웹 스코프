@@ -3,3 +3,14 @@ request :  HTTP 요청 하나가 들어오고 나갈 때 까지 유지됨. 각�
 session : HTTP session과 동일한 생명주기를 가짐
 application : Servlet Context와 동일한 생명주기를 가짐
 websocket : websocket과 동일한 생명주기를 가짐
+
+* 웹과 관련된 부분은 컨트롤러까지만 사용하는 것이 좋음.
+
+* ObjectProvider 로 스프링 컨테이너에 빈의 호출 시점을 지연함
+
+* proxyMode = ScopedProxyMode.TARGET_CLASS
+- CGLIb이라는 라이브러리로 내 클리스를 상속받은 가짜 프록시 객체를 만들어서 주입한다.
+- 스프링컨테이너에 이 가짜 프록시 객체를 등록한다.
+- ac.getBean 해도 프록시 객체가 조회됨.
+- 요청이 오면 그때 내부에서 진짜 빈을 요청하는 위임 로직이 들어있다.
+- 다형성과 DI 컨테이너가 가진 강점 
